@@ -1,9 +1,11 @@
+import unittest
 from unittest import TestCase
 
-from Lexer import Lexer
-from Node import Literal, Replacement, FieldName, FormatString, Index, FormatSpec, Conversion
-from Parser import Parser, ParserException
-from Scanner import Scanner
+from ..core.Lexer import Lexer
+from ..core.Parser import Parser, ParserException
+from ..core.Scanner import Scanner
+
+from ..core.Node import Literal, Replacement, FieldName, FormatString, Index, FormatSpec, Conversion
 
 
 class ParserTest(TestCase):
@@ -115,3 +117,5 @@ class ParserTest(TestCase):
                 [Literal('milk and '),
                  Replacement(FieldName(0), None, FormatSpec('.>{}', [Replacement(FieldName(1))]))]))
 
+if __name__ == '__main__':
+    unittest.main()

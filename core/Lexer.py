@@ -1,9 +1,10 @@
 from string import digits, whitespace, punctuation, printable, octdigits, hexdigits
 
-from Node import Replacement, Conversion, FormatSpec, Attribute, Index
-from Scanner import Scanner
-from Token import Token
-from TokenEnum import TokenEnum
+from .Node import Replacement, Conversion, FormatSpec, Attribute, Index
+from .Scanner import Scanner
+from .Token import Token
+
+from .TokenEnum import TokenEnum
 
 
 class LexerException(Exception):

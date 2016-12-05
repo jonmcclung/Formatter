@@ -1,11 +1,12 @@
 import unittest
 from string import digits
 
-from Lexer import Lexer
-from Scanner import Scanner
-from TokenEnum import TokenEnum
-from Node import FieldName, Index, Replacement, FormatSpec
-from Token import Token
+from ..core.Lexer import Lexer
+from ..core.Node import Index, Replacement, FormatSpec
+from ..core.Scanner import Scanner
+from ..core.Token import Token
+
+from ..core.TokenEnum import TokenEnum
 
 
 class LexerTest(unittest.TestCase):
@@ -58,3 +59,7 @@ class LexerTest(unittest.TestCase):
             [Token('milk and ', TokenEnum.literal), Replacement.l_brace, FormatSpec.colon,
              Token('.', TokenEnum.punctuation), Token('>', TokenEnum.punctuation),
              Replacement.l_brace, Replacement.r_brace, Replacement.r_brace])
+
+
+if __name__ == '__main__':
+    unittest.main()

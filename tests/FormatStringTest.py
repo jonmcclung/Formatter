@@ -1,13 +1,13 @@
 from collections import namedtuple
 from unittest import TestCase
+import unittest
 
-from EqualityByValue import EqualityByValue
-from Formatter import Formatter
-from Lexer import Lexer
-from Node import FieldName, Attribute, Index, FormatString, Replacement
-from Parser import Parser
-from Token import Token
-from TokenEnum import TokenEnum
+from ..core.Lexer import Lexer
+from ..core.Node import FieldName, Attribute, Index, FormatString, Replacement
+from ..core.Parser import Parser
+
+from ..core import format_
+from ..utils.EqualityByValue import EqualityByValue
 
 
 class Foo:
@@ -69,30 +69,30 @@ class FieldNameTest(TestCase):
     def test_formatter_0(self):
         foo = Foo([0, 2], 5)
         format_str = '{0.x[1]}'
-        self.assertEqual(Formatter.format(format_str, foo), '2')
+        self.assertEqual(format_(format_str, foo), '2')
 
     def test_formatter_1(self):
         foo = Foo(range(20), 5)
         format_str = '{0O10.x[0b10]}'
-        self.assertEqual(Formatter.format(format_str, 0, 1, 2, 3, 4, 5, 6, 7, foo), '2')
+        self.assertEqual(format_(format_str, 0, 1, 2, 3, 4, 5, 6, 7, foo), '2')
 
     def test_formatter_2(self):
         matrix = [[[[[[4]]]]]]
         format_str = 'abracashow {{ {matrix_[0][0][0][0][0][0]}'
-        self.assertEqual(Formatter.format(format_str, matrix_=matrix), 'abracashow { 4')
+        self.assertEqual(format_(format_str, matrix_=matrix), 'abracashow { 4')
 
     def test_formatter_3(self):
         format_str = 'milk and {}'
-        self.assertEqual(Formatter.format(format_str, 'eggs'), 'milk and eggs')
+        self.assertEqual(format_(format_str, 'eggs'), 'milk and eggs')
 
     def test_formatter_4(self):
         format_str = 'milk and {!s:}'
-        self.assertEqual(Formatter.format(format_str, 'eggs'), 'milk and eggs')
+        self.assertEqual(format_(format_str, 'eggs'), 'milk and eggs')
 
     def test_formatter_5(self):
         format_str = 'milk and {!s:#}'
         try:
-            Formatter.format(format_str, 'eggs')
+            format_(format_str, 'eggs')
         except ValueError:
             pass
         else:
@@ -100,20 +100,20 @@ class FieldNameTest(TestCase):
 
     def test_formatter_6(self):
         format_str = 'milk and {:.>10}'
-        self.assertEqual(Formatter.format(format_str, 'eggs'), 'milk and ......eggs')
+        self.assertEqual(format_(format_str, 'eggs'), 'milk and ......eggs')
 
     def test_formatter_7(self):
         format_str = 'milk and {:.>{}}'
-        self.assertEqual(Formatter.format(format_str, 'eggs', 10), 'milk and ......eggs')
+        self.assertEqual(format_(format_str, 'eggs', 10), 'milk and ......eggs')
 
     def test_formatter_8(self):
         format_str = 'milk and {:{}{}{}}'
-        self.assertEqual(Formatter.format(format_str, 'eggs', '.', '>', 10), 'milk and ......eggs')
+        self.assertEqual(format_(format_str, 'eggs', '.', '>', 10), 'milk and ......eggs')
 
     def test_formatter_9(self):
         format_str = 'milk and {2:{bob}{0}{0}}'
         try:
-            self.assertEqual(Formatter.format(format_str, 'eggs', '.', '>', 10), 'milk and ......eggs')
+            self.assertEqual(format_(format_str, 'eggs', '.', '>', 10), 'milk and ......eggs')
         except KeyError:
             pass
         else:
@@ -121,24 +121,26 @@ class FieldNameTest(TestCase):
 
     def test_formatter_10(self):
         format_str = 'milk and {2:{bob}{0}{1}}'
-        self.assertEqual(Formatter.format(format_str, '>', 10, 'eggs', bob='.'), 'milk and ......eggs')
+        self.assertEqual(format_(format_str, '>', 10, 'eggs', bob='.'), 'milk and ......eggs')
 
     def test_formatter_11(self):
         format_str = "First, thou shalt count to {0}"
-        self.assertEqual(Formatter.format(format_str, 0x54), 'First, thou shalt count to 84')
+        self.assertEqual(format_(format_str, 0x54), 'First, thou shalt count to 84')
 
     def test_formatter_12(self):
         Weighted = namedtuple('Weighted', 'weight')
         format_str = "Weight in tons {0.weight}"
-        self.assertEqual(Formatter.format(format_str, Weighted(5)), "Weight in tons 5")
+        self.assertEqual(format_(format_str, Weighted(5)), "Weight in tons 5")
 
     def test_formatter_13(self):
         format_str = "Units destroyed: {players[0]}"
-        self.assertEqual(Formatter.format(format_str, players=[1,2,3,4]), "Units destroyed: 1")
+        self.assertEqual(format_(format_str, players=[1,2,3,4]), "Units destroyed: 1")
 
     def test_formatter_14(self):
         Weighted = namedtuple('Weighted', 'weight')
         format_str = "Bring out the {name!r}"
-        self.assertEqual(Formatter.format(format_str, name=Weighted(5)), "Bring out the Weighted(weight=5)")
+        self.assertEqual(format_(format_str, name=Weighted(5)), "Bring out the Weighted(weight=5)")
 
 
+if __name__ == '__main__':
+    unittest.main()

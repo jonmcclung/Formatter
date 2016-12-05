@@ -1,9 +1,9 @@
-from enum import Enum, unique
 from typing import Sequence, Union
 
-from EqualityByValue import EqualityByValue
-from TokenEnum import TokenEnum
-from Token import Token
+from .Token import Token
+
+from ..utils import EqualityByValue
+from .TokenEnum import TokenEnum
 
 
 @EqualityByValue

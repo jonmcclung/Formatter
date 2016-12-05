@@ -1,7 +1,8 @@
-from TokenEnum import TokenEnum
-from Node import Replacement, Literal, Conversion, FormatSpec, FieldName, FormatString, Attribute, Index, Align, Sign
-from Scanner import Scanner
-from Token import Token
+from .Node import Replacement, Literal, Conversion, FormatSpec, FieldName, FormatString, Attribute, Index
+from .Scanner import Scanner
+from .Token import Token
+
+from .TokenEnum import TokenEnum
 
 
 class ParserException(Exception):

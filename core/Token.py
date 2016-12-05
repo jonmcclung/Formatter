@@ -1,5 +1,4 @@
-from TokenEnum import TokenEnum
-from EqualityByValue import EqualityByValue
+from ..utils import EqualityByValue
 
 
 @EqualityByValue
