@@ -15,8 +15,9 @@ def EqualityByValue(cls):
 
         def __repr__(self):
             values = ', '.join(
-                ''.join([str(attribute), ': ', str(value)])
-                        for attribute, value in
-                        self.__dict__.items())
+                ''.join([str(attribute), ': ', repr(value)])
+                for attribute, value in
+                self.__dict__.items())
             return '<{}({})>'.format(cls.__name__, values)
+
     return Wrapper

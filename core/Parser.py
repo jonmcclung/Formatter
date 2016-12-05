@@ -124,28 +124,6 @@ class Parser:
             token = self.tokens.consume()
         assert False, "Lexer missed unmatched '{'"
 
-    '''
-    if self.tokens.peek() in Align.valid_tokens:
-        align = self.consume_value()
-    elif self.tokens.peek(1) in Align.valid_tokens:
-        fill = self.consume_value()
-        align = self.consume_value()
-    if self.tokens.peek() in Sign.valid_tokens:
-        sign = self.consume_value()
-    hash_ = self.true_if_has('#')
-    zero_pad = self.true_if_has('0')
-    if self.tokens.peek().token_type == TokenEnum.integer:
-        width = self.consume_value()
-    else:
-        width = 0
-    comma = self.true_if_has(',')
-    if self.true_if_has('.'):
-        precision = self.consume_value()
-        Parser.expect(type(precision) == int, 'expected an integer precision following that period')
-    if self.tokens.peek() in Type_:
-        type_ = self.consume_value())
-    '''
-
     def parse_index(self, getters):
         if self.tokens.peek() != Index.l_bracket:
             return False
